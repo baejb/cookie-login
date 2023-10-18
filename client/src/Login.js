@@ -15,7 +15,7 @@ const MainContainer = styled.div`
 const LoginContainer = styled.div`
     width: 600px;
     height: 420px;
-    border-radius: 10px;
+    border-radius: 20px;
     border:10px solid #BEADFA;
     > div {
         /* width: 100%; */
@@ -23,7 +23,7 @@ const LoginContainer = styled.div`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-top: 4%;
+        margin-top: 3%;
     
         > p {
             width: 500px;
@@ -49,19 +49,28 @@ const LoginButton = styled.button`
     color: white;
     border: none;
     font-size: 24px;
-    margin-top: 3%;
+    margin-bottom: 5%;
 `
 const ErrorMsg = styled.div`
     color: red;
     font-size: 14px;
     text-align: left;
    
+`
+const LoginState = styled.input`
+    zoom: 1.3;
+    margin-top: 20px;
+    margin-left: 50px;
     
+`
+const LoginStateMsg = styled.span`
+   font-size: 18px;
 `
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMsg, setErrorMsg] = useState(null);
+    const [isChecked, setIsChecked] = useState(false);
     const handleLogin = () => {
         //로그인 로직 
         const data = {username, password};
@@ -90,6 +99,7 @@ const Login = () => {
         
         console.log(username);
         console.log(password);
+        console.log(isChecked);
     }
     
     return (
@@ -113,6 +123,13 @@ const Login = () => {
                         onChange={(e)=> setPassword(e.target.value)}
                     />
                 </div>
+                <LoginState 
+                type='checkbox'
+                checked={isChecked}
+                onChange={(e)=> setIsChecked(!isChecked)}
+                
+                />
+                <LoginStateMsg>로그인 유지하기</LoginStateMsg>
                 <ErrorMsg>
                 {errorMsg}
                 </ErrorMsg>
