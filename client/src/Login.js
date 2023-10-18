@@ -17,7 +17,7 @@ const LoginContainer = styled.div`
     border-radius: 10px;
     border:10px solid #BEADFA;
     > div {
-        width: 100%;
+        /* width: 100%; */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -50,15 +50,41 @@ const LoginButton = styled.button`
     font-size: 24px;
     margin-top: 3%;
 `
+const ErrorMsg = styled.div`
+    color: red;
+    font-size: 14px;
+    text-align: left;
+   
+    
+`
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const [errorMsg, setErrorMsg] = useState(null);
     const handleLogin = () => {
         //로그인 로직 
+        const validUsername = 'test';
+        const validPassword = 'test1234';
+        if(username.length === 0 || password.length === 0){
+            setErrorMsg('아이디 또는 비밀번호를 모두 입력해주세요.');
+        }
+        if(username === validUsername && password === validPassword){
+            console.log('로그인 성공');
+        }
+        else if(username !== validUsername) {
+            setErrorMsg('존재하지 않은 아이디입니다.');
+        }
+        else if(username === validUsername && password !== validPassword){
+            setErrorMsg('비밀번호가 일치하지 않습니다.');
+        }
+        else{
+            setErrorMsg('')
+        }
+        
         console.log(username);
         console.log(password);
     }
+    
     return (
         <MainContainer>
             <div> Login</div>
@@ -80,6 +106,9 @@ const Login = () => {
                         onChange={(e)=> setPassword(e.target.value)}
                     />
                 </div>
+                <ErrorMsg>
+                {errorMsg}
+                </ErrorMsg>
                 <div>
                     <LoginButton onClick={handleLogin}>로그인</LoginButton>
                 </div>
