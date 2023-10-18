@@ -70,9 +70,18 @@ const Login = () => {
         .then((response)=> {
             if(response.data.message === '로그인 성공'){
                 console.log('로그인 성공');
-            } else {
-                setErrorMsg('로그인 실패');
             }
+            else if (response.status === 200) {
+                if (response.data.message === '아이디 없음') {
+                  console.log('존재하지 않는 아이디');
+                  setErrorMsg('존재하지 않는 아이디입니다.');
+                } else if (response.data.message === '비밀번호 오류') {
+                  console.log('비밀번호가 일치하지 않습니다.');
+                  setErrorMsg('비밀번호가 일치하지 않습니다.');
+                } else {
+                  setErrorMsg('로그인 실패');
+                }
+              }
         })
         .catch((error)=> {
             console.log('에러', error);
