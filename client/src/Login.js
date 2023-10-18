@@ -86,21 +86,7 @@ const Login = () => {
         .catch((error)=> {
             console.log('에러', error);
         })
-        // if(username.length === 0 || password.length === 0){
-        //     setErrorMsg('아이디 또는 비밀번호를 모두 입력해주세요.');
-        // }
-        // if(username === validUsername && password === validPassword){
-        //     console.log('로그인 성공');
-        // }
-        // else if(username !== validUsername) {
-        //     setErrorMsg('존재하지 않은 아이디입니다.');
-        // }
-        // else if(username === validUsername && password !== validPassword){
-        //     setErrorMsg('비밀번호가 일치하지 않습니다.');
-        // }
-        // else{
-        //     setErrorMsg('')
-        // }
+       
         
         console.log(username);
         console.log(password);
