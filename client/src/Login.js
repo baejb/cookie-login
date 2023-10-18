@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import React from 'react';
 import styled from 'styled-components';
 
@@ -63,23 +64,34 @@ const Login = () => {
     const [errorMsg, setErrorMsg] = useState(null);
     const handleLogin = () => {
         //로그인 로직 
-        const validUsername = 'test';
-        const validPassword = 'test1234';
-        if(username.length === 0 || password.length === 0){
-            setErrorMsg('아이디 또는 비밀번호를 모두 입력해주세요.');
-        }
-        if(username === validUsername && password === validPassword){
-            console.log('로그인 성공');
-        }
-        else if(username !== validUsername) {
-            setErrorMsg('존재하지 않은 아이디입니다.');
-        }
-        else if(username === validUsername && password !== validPassword){
-            setErrorMsg('비밀번호가 일치하지 않습니다.');
-        }
-        else{
-            setErrorMsg('')
-        }
+        const data = {username, password};
+
+        axios.post('http://localhost:3001/login', data)
+        .then((response)=> {
+            if(response.data.message === '로그인 성공'){
+                console.log('로그인 성공');
+            } else {
+                setErrorMsg('로그인 실패');
+            }
+        })
+        .catch((error)=> {
+            console.log('에러', error);
+        })
+        // if(username.length === 0 || password.length === 0){
+        //     setErrorMsg('아이디 또는 비밀번호를 모두 입력해주세요.');
+        // }
+        // if(username === validUsername && password === validPassword){
+        //     console.log('로그인 성공');
+        // }
+        // else if(username !== validUsername) {
+        //     setErrorMsg('존재하지 않은 아이디입니다.');
+        // }
+        // else if(username === validUsername && password !== validPassword){
+        //     setErrorMsg('비밀번호가 일치하지 않습니다.');
+        // }
+        // else{
+        //     setErrorMsg('')
+        // }
         
         console.log(username);
         console.log(password);
@@ -93,7 +105,7 @@ const Login = () => {
                     <p>아이디</p>
                     <LoginInput
                         placeholder="아이디를 입력해주세요"
-                        valie={username}
+                        value={username}
                         onChange={(e)=> setUsername(e.target.value)}
                     />
                 </div>
@@ -102,7 +114,7 @@ const Login = () => {
                     <LoginInput
                         type="password"
                         placeholder="비밀번호를 입력해주세요"
-                        valie={password}
+                        value={password}
                         onChange={(e)=> setPassword(e.target.value)}
                     />
                 </div>
